@@ -71,6 +71,10 @@ namespace SpieleGlücksrad
             timer3.Stop();
             label1.Text = (360f / n).ToString();
 
+
+
+
+
         }
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -106,7 +110,7 @@ namespace SpieleGlücksrad
 
                 Glücksrad.DrawString(win, bisa, Brushes.White, rf);
             }
-
+            Glücksrad.Save();
 
         }
 
