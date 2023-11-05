@@ -258,5 +258,17 @@ namespace SpieleGlücksrad
                 checkedListBox1.SetItemChecked(i, false);
             }
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Maximum = checkedListBox1.Items.Count;
+            label2.Text = checkedListBox1.Items[(int)numericUpDown1.Value - 1].ToString();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            label2.Text = "Das Rad wird bestochen!";
+            f.Bestochen(((int)numericUpDown1.Value) - 1);
+        }
     }
 }

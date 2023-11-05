@@ -40,7 +40,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.BackColor = Color.Lime;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(560, 560);
@@ -68,13 +68,12 @@
             label1.Size = new Size(38, 15);
             label1.TabIndex = 1;
             label1.Text = "label1";
-            label1.Visible = false;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.GhostWhite;
+            BackColor = Color.Lime;
             ClientSize = new Size(586, 584);
             Controls.Add(label1);
             Controls.Add(pictureBox1);

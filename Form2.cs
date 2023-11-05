@@ -17,7 +17,7 @@ namespace SpieleGlücksrad
     public partial class Form2 : Form
     {
 
-        private int deg;
+        private float deg = 0.1f;
         private bool tstop;
         private int slowup;
         Point[] points = new Point[3];
@@ -28,6 +28,9 @@ namespace SpieleGlücksrad
         private string[]? würfel;
         private string win = "";
         private Form1? form;
+        private double degJn;
+        private int iBestochen;
+        private bool bBestochen;
 
         public Form2(Form1 f)
         {
@@ -55,10 +58,10 @@ namespace SpieleGlücksrad
         {
             würfel = list.ToArray();
             win = "";
-            deg = 0;
+            //deg = 0;
             n = elements;
             pictureBox1.Invalidate();
-            speed = 10;
+            speed = 15;
             slowdown = false;
             slowup = 0;
             slow = false;
@@ -69,7 +72,9 @@ namespace SpieleGlücksrad
             timer2.Start();
             timer1.Stop();
             timer3.Stop();
-            label1.Text = (360f / n).ToString();
+            //label1.Text = (360f / n).ToString();
+            degJn = 360f / n;
+
 
 
 
@@ -84,7 +89,7 @@ namespace SpieleGlücksrad
             Glücksrad.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             Glücksrad.TranslateTransform(280, 280);
-            Glücksrad.RotateTransform(deg);
+            Glücksrad.RotateTransform(deg-90);
 
             DrawRad(Glücksrad, n);
 
@@ -100,13 +105,13 @@ namespace SpieleGlücksrad
             if (win != "")
             {
 
-                Glücksrad.FillRectangle(Brushes.Black, -200, 75, 400, 400);
+                Glücksrad.FillRectangle(Brushes.Black, -200, 175, 400, 200);
                 Font bisa = new Font("Arial", 25, FontStyle.Bold);
                 RectangleF rf = new RectangleF();
                 rf.Width = 350;
-                rf.Height = 350;
+                rf.Height = 150;
                 rf.X = -175;
-                rf.Y = 100;
+                rf.Y = 200;
 
                 Glücksrad.DrawString(win, bisa, Brushes.White, rf);
             }
@@ -126,19 +131,30 @@ namespace SpieleGlücksrad
         {
 
             deg += speed;
+            if (deg >= 360) { deg -= 360; }
 
-
+            label1.Text = (deg  / degJn).ToString() +" | " + würfel[(int)(deg / degJn) ];
 
             if (slow)
             {
                 slowup += 1;
+                if (bBestochen && slowup >= 48)
+                {
+                    slowup = 48;
+                    if ((int)(deg / degJn) == iBestochen)
+                    {
+                        slowup = 50;
+                        bBestochen = false;
+                    }
+
+                }
                 if (slowup == 50) { tstop = true; }
                 timer3.Interval = slowup;
             }
-            if (deg == 360) { deg = 0; }
+            
 
             pictureBox1.Invalidate();
-            label1.Text = slowup.ToString();
+            //label1.Text = slowup.ToString();
         }
 
         private void DrawRad(Graphics g, int n)
@@ -164,13 +180,13 @@ namespace SpieleGlücksrad
             {
                 timer3.Stop();
                 timer1.Stop();
-                int gezogen;
+                float gezogen;
                 if (würfel.Length > 1)
                 {
-                    gezogen = RandomNumberGenerator.GetInt32(0, würfel.Length - 1);
+                    gezogen = (float)(deg / degJn);
                 }
                 else { gezogen = 0; }
-                win = würfel[gezogen];
+                win = würfel[(int)gezogen];
                 pictureBox1.Invalidate();
                 if (form.IsAutoStreich())
                 {
@@ -201,6 +217,11 @@ namespace SpieleGlücksrad
         {
             form.save();
             form.Close();
+        }
+        public void Bestochen(int ListNo)
+        {
+            iBestochen = ListNo;
+            bBestochen = true;
         }
     }
 }

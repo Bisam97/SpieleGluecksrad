@@ -51,10 +51,16 @@
             button7 = new Button();
             button8 = new Button();
             checkBox1 = new CheckBox();
+            groupBox5 = new GroupBox();
+            label2 = new Label();
+            numericUpDown1 = new NumericUpDown();
+            button11 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -125,7 +131,7 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(271, 21);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(325, 454);
+            checkedListBox1.Size = new Size(325, 220);
             checkedListBox1.TabIndex = 2;
             checkedListBox1.MouseMove += checkedListBox1_MouseMove;
             // 
@@ -245,11 +251,53 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
+            // groupBox5
+            // 
+            groupBox5.Controls.Add(label2);
+            groupBox5.Controls.Add(numericUpDown1);
+            groupBox5.Controls.Add(button11);
+            groupBox5.Location = new Point(271, 245);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(325, 86);
+            groupBox5.TabIndex = 9;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Bestechen";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 15);
+            label2.TabIndex = 2;
+            label2.Text = "label2";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(141, 20);
+            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(129, 23);
+            numericUpDown1.TabIndex = 1;
+            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(6, 20);
+            button11.Name = "button11";
+            button11.Size = new Size(129, 23);
+            button11.TabIndex = 0;
+            button11.Text = "Besteche das Rad";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(608, 485);
+            Controls.Add(groupBox5);
             Controls.Add(checkBox1);
             Controls.Add(button8);
             Controls.Add(button7);
@@ -269,6 +317,9 @@
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -296,5 +347,9 @@
         private Button button9;
         private CheckBox checkBox1;
         private Button button10;
+        private GroupBox groupBox5;
+        private Label label2;
+        private NumericUpDown numericUpDown1;
+        private Button button11;
     }
 }
