@@ -24,13 +24,15 @@ namespace SpieleGlücksrad
         private bool slow;
         private bool slowdown;
         int n = 20;
-        private int speed = 10;
+        private int speed = 15;
         private string[]? würfel;
         private string win = "";
         private Form1? form;
         private double degJn;
         private int iBestochen;
         private bool bBestochen;
+        private int maxDauer = 10000;
+        private int minDauer = 5000;
 
         public Form2(Form1 f)
         {
@@ -68,7 +70,7 @@ namespace SpieleGlücksrad
             tstop = false;
             timer2.Interval = 5000;
             timer3.Interval = 1;
-            timer1.Interval = RandomNumberGenerator.GetInt32(5000, 10000);
+            timer1.Interval = RandomNumberGenerator.GetInt32(minDauer,maxDauer);
             timer2.Start();
             timer1.Stop();
             timer3.Stop();
@@ -222,6 +224,19 @@ namespace SpieleGlücksrad
         {
             iBestochen = ListNo;
             bBestochen = true;
+        }
+
+        internal string getMinDauer() => minDauer.ToString();
+
+        internal string getMaxDauer() => maxDauer.ToString();
+
+        internal string getSpeed() => speed.ToString();
+
+        internal void setMdMdSpeed(int MinDauer, int MaxDauer, int Speed)
+        {
+            minDauer = MinDauer;
+            maxDauer = MaxDauer;
+            speed = Speed;
         }
     }
 }

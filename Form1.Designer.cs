@@ -43,6 +43,7 @@
             button5 = new Button();
             label1 = new Label();
             toolTip1 = new ToolTip(components);
+            label4 = new Label();
             saveFileDialog1 = new SaveFileDialog();
             openFileDialog1 = new OpenFileDialog();
             groupBox4 = new GroupBox();
@@ -55,12 +56,22 @@
             label2 = new Label();
             numericUpDown1 = new NumericUpDown();
             button11 = new Button();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            label5 = new Label();
+            label3 = new Label();
+            textBox4 = new TextBox();
+            textBox3 = new TextBox();
+            textBox2 = new TextBox();
+            tabPage2 = new TabPage();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -185,6 +196,16 @@
             label1.TabIndex = 4;
             label1.Text = "label1";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(119, 66);
+            label4.Name = "label4";
+            label4.Size = new Size(181, 15);
+            label4.TabIndex = 4;
+            label4.Text = "Start geschwindichkeit des Rades";
+            toolTip1.SetToolTip(label4, "Drehgeschwindichkeit in Grad pro tick (1ms)");
+            // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
@@ -293,11 +314,90 @@
             button11.UseVisualStyleBackColor = true;
             button11.Click += button11_Click;
             // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(271, 341);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(325, 126);
+            tabControl1.TabIndex = 10;
+            // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(label5);
+            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(textBox4);
+            tabPage1.Controls.Add(textBox3);
+            tabPage1.Controls.Add(textBox2);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(317, 98);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Geschwindichkeit und Timer";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(119, 37);
+            label5.Name = "label5";
+            label5.Size = new Size(139, 15);
+            label5.TabIndex = 5;
+            label5.Text = "Längste Drehdauer in MS";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(119, 8);
+            label3.Name = "label3";
+            label3.Size = new Size(142, 15);
+            label3.TabIndex = 3;
+            label3.Text = "Kürzeste Drehdauer in MS";
+            // 
+            // textBox4
+            // 
+            textBox4.BorderStyle = BorderStyle.FixedSingle;
+            textBox4.Location = new Point(6, 64);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(100, 23);
+            textBox4.TabIndex = 2;
+            // 
+            // textBox3
+            // 
+            textBox3.BorderStyle = BorderStyle.FixedSingle;
+            textBox3.Location = new Point(6, 35);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(100, 23);
+            textBox3.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Location = new Point(6, 6);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(317, 98);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(608, 485);
+            Controls.Add(tabControl1);
             Controls.Add(groupBox5);
             Controls.Add(checkBox1);
             Controls.Add(button8);
@@ -321,6 +421,9 @@
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -352,5 +455,14 @@
         private Label label2;
         private NumericUpDown numericUpDown1;
         private Button button11;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TextBox textBox2;
+        private TextBox textBox4;
+        private TextBox textBox3;
+        private Label label5;
+        private Label label4;
+        private Label label3;
     }
 }

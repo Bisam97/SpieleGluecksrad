@@ -5,7 +5,7 @@ namespace SpieleGlücksrad
 {
     public partial class Form1 : Form
     {
-        Form2? f;
+        private Form2? f;
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +31,11 @@ namespace SpieleGlücksrad
 
                 }
                 Prüfe();
+
+                textBox2.Text = f.getMinDauer();
+                textBox3.Text = f.getMaxDauer();
+                textBox4.Text = f.getSpeed();
+
             }
 
         }
@@ -123,7 +128,7 @@ namespace SpieleGlücksrad
 
         private void button7_Click(object sender, EventArgs e)
         {
-            
+
             if (f.Visible == false)
             {
 
@@ -134,8 +139,9 @@ namespace SpieleGlücksrad
             else
             {
 
-                
+                f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
                 f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
+
             }
 
         }
@@ -279,11 +285,11 @@ namespace SpieleGlücksrad
             int i = MakeList().IndexOf(checkedListBox1.Items[checkedListBox1.SelectedIndex].ToString());
             if (i > -1)
             {
-                numericUpDown1.Value = i+1;
+                numericUpDown1.Value = i + 1;
             }
-            
 
-            
+
+
         }
     }
 }
