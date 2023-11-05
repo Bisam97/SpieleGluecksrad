@@ -37,6 +37,7 @@
             button3 = new Button();
             checkedListBox1 = new CheckedListBox();
             groupBox3 = new GroupBox();
+            button10 = new Button();
             textBox1 = new TextBox();
             button5 = new Button();
             label1 = new Label();
@@ -123,20 +124,31 @@
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(271, 21);
             checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(325, 490);
+            checkedListBox1.Size = new Size(325, 454);
             checkedListBox1.TabIndex = 2;
             checkedListBox1.MouseMove += checkedListBox1_MouseMove;
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(button10);
             groupBox3.Controls.Add(textBox1);
             groupBox3.Controls.Add(button5);
             groupBox3.Location = new Point(12, 114);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(236, 100);
+            groupBox3.Size = new Size(236, 124);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
             groupBox3.Text = "Einfügen in die Liste";
+            // 
+            // button10
+            // 
+            button10.Location = new Point(11, 89);
+            button10.Name = "button10";
+            button10.Size = new Size(198, 23);
+            button10.TabIndex = 2;
+            button10.Text = "Abgehackte Aufheben";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
             // 
             // textBox1
             // 
@@ -159,7 +171,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 321);
+            label1.Location = new Point(12, 363);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 4;
@@ -173,9 +185,9 @@
             // 
             groupBox4.Controls.Add(button9);
             groupBox4.Controls.Add(button6);
-            groupBox4.Location = new Point(12, 220);
+            groupBox4.Location = new Point(12, 244);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(236, 96);
+            groupBox4.Size = new Size(236, 87);
             groupBox4.TabIndex = 5;
             groupBox4.TabStop = false;
             groupBox4.Text = "Aus Liste löschen";
@@ -202,7 +214,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(12, 340);
+            button7.Location = new Point(12, 341);
             button7.Name = "button7";
             button7.Size = new Size(236, 59);
             button7.TabIndex = 6;
@@ -213,7 +225,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(12, 430);
+            button8.Location = new Point(12, 431);
             button8.Name = "button8";
             button8.Size = new Size(236, 36);
             button8.TabIndex = 7;
@@ -224,7 +236,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(12, 405);
+            checkBox1.Location = new Point(12, 406);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(145, 19);
             checkBox1.TabIndex = 8;
@@ -236,7 +248,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(608, 521);
+            ClientSize = new Size(608, 485);
             Controls.Add(checkBox1);
             Controls.Add(button8);
             Controls.Add(button7);
@@ -281,5 +293,6 @@
         private Button button8;
         private Button button9;
         private CheckBox checkBox1;
+        private Button button10;
     }
 }

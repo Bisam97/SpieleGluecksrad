@@ -244,11 +244,19 @@ namespace SpieleGlücksrad
             Prüfe();
         }
 
-      
+
 
         private void checkedListBox1_MouseMove(object sender, MouseEventArgs e)
         {
             Prüfe();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, false);
+            }
         }
     }
 }
