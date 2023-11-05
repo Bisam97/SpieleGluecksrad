@@ -123,7 +123,7 @@ namespace SpieleGlücksrad
 
         private void button7_Click(object sender, EventArgs e)
         {
-            List<string> notCheckedItem = new List<string>();
+            
             if (f.Visible == false)
             {
 
@@ -134,23 +134,25 @@ namespace SpieleGlücksrad
             else
             {
 
-
-                for (int i = 0; i < checkedListBox1.Items.Count; i++)
-                {
-                    if (!checkedListBox1.GetItemChecked(i))
-                    {
-                        notCheckedItem.Add(checkedListBox1.Items[i].ToString());
-                        // Hier können Sie das nicht angeklickte Element weiterverarbeiten.
-                    }
-                }
-                f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, notCheckedItem);
+                
+                f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
             }
 
         }
 
-
-
-
+        private List<string> MakeList()
+        {
+            List<string> notCheckedItem = new List<string>();
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                if (!checkedListBox1.GetItemChecked(i))
+                {
+                    notCheckedItem.Add(checkedListBox1.Items[i].ToString());
+                    // Hier können Sie das nicht angeklickte Element weiterverarbeiten.
+                }
+            }
+            return notCheckedItem;
+        }
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -262,13 +264,26 @@ namespace SpieleGlücksrad
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown1.Maximum = checkedListBox1.Items.Count;
-            label2.Text = checkedListBox1.Items[(int)numericUpDown1.Value - 1].ToString();
+
+            label2.Text = MakeList()[(int)numericUpDown1.Value - 1].ToString();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
             label2.Text = "Das Rad wird bestochen!";
             f.Bestochen(((int)numericUpDown1.Value) - 1);
+        }
+
+        private void checkedListBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int i = MakeList().IndexOf(checkedListBox1.Items[checkedListBox1.SelectedIndex].ToString());
+            if (i > -1)
+            {
+                numericUpDown1.Value = i+1;
+            }
+            
+
+            
         }
     }
 }
