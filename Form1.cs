@@ -154,13 +154,16 @@ namespace SpieleGlücksrad
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Streiche();
+            if (f.getWin() != "")
+            {
+                Streiche();
+            }
         }
         public void save()
         {
-            if (checkedListBox1.Items.Count !=0)
+            if (checkedListBox1.Items.Count != 0)
             {
-                
+
                 string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
                 MessageBox.Show("Daten werden in '" + userProfilePath + "\\Documents\\GlücksradClosed.csv' Gespeichert.");
 
@@ -179,7 +182,7 @@ namespace SpieleGlücksrad
                 }
                 File.WriteAllText(userProfilePath + "\\Documents\\GlücksradClosed" + ss + ".csv", s);
             }
-    
+
         }
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -237,6 +240,13 @@ namespace SpieleGlücksrad
         }
 
         private void button7_MouseEnter(object sender, EventArgs e)
+        {
+            Prüfe();
+        }
+
+      
+
+        private void checkedListBox1_MouseMove(object sender, MouseEventArgs e)
         {
             Prüfe();
         }

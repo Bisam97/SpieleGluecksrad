@@ -125,6 +125,7 @@
             checkedListBox1.Name = "checkedListBox1";
             checkedListBox1.Size = new Size(325, 490);
             checkedListBox1.TabIndex = 2;
+            checkedListBox1.MouseMove += checkedListBox1_MouseMove;
             // 
             // groupBox3
             // 
