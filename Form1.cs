@@ -114,37 +114,54 @@ namespace SpieleGlücksrad
 
         private void button2_Click(object sender, EventArgs e)
         {
-           //LOAD
+            //LOAD
+            openFileDialog1.Title = "Öffne Settings";
+            openFileDialog1.Filter = "XML|*.xml";
+            openFileDialog1.FileName = "";
+            openFileDialog1.ShowDialog();
+
+
             toolTip1.RemoveAll();
             toolTip1.InitialDelay = 0;
             toolTip1.SetToolTip(button2, "Work on Progness");
-
-            Stream stream = File.Open("test.xml", FileMode.Open);
-
-            SoapFormatter formatter = new SoapFormatter();
-            s = (GrSettings)formatter.Deserialize(stream);
-            stream.Close();
-            f.setSettings(s);
-            if (File.Exists(s.Path))
+            if (File.Exists(openFileDialog1.FileName))
             {
-                string s = File.ReadAllText(this.s.Path);
-                LoadFile(s);
+                Stream stream = File.Open(openFileDialog1.FileName, FileMode.Open);
+
+                SoapFormatter formatter = new SoapFormatter();
+                s = (GrSettings)formatter.Deserialize(stream);
+                stream.Close();
+                f.setSettings(s);
+                if (File.Exists(s.Path))
+                {
+                    string s = File.ReadAllText(this.s.Path);
+                    LoadFile(s);
+                }
             }
-            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             //SAVE
+            saveFileDialog1.Title = "Save Settings";
+            saveFileDialog1.Filter = "XML|*.xml";
+            saveFileDialog1.FileName = "";
+            DialogResult rmd = saveFileDialog1.ShowDialog();
+            
+            
             toolTip1.RemoveAll();
             toolTip1.InitialDelay = 0;
             toolTip1.SetToolTip(button3, "Work on Progness");
 
-            Stream stream = File.Open("test.xml", FileMode.Create);
-            SoapFormatter formatter = new SoapFormatter();
-            formatter.Serialize(stream, s);
-            stream.Close();
+            if (rmd == DialogResult.OK)
+            {
 
+                Stream stream = File.Open(saveFileDialog1.FileName, FileMode.Create);
+                SoapFormatter formatter = new SoapFormatter();
+                formatter.Serialize(stream, s);
+                stream.Close();
+
+            }
 
         }
 
