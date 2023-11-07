@@ -64,7 +64,7 @@ namespace SpieleGlücksrad
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
+
             string s = "";
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
             {
@@ -147,8 +147,8 @@ namespace SpieleGlücksrad
             saveFileDialog1.Filter = "XML|*.xml";
             saveFileDialog1.FileName = "";
             DialogResult rmd = saveFileDialog1.ShowDialog();
-            
-            
+
+
             toolTip1.RemoveAll();
             toolTip1.InitialDelay = 0;
             toolTip1.SetToolTip(button3, "Work on Progness");
@@ -167,11 +167,11 @@ namespace SpieleGlücksrad
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if(s.Color.Count == 0) 
+            if (s.Color.Count == 0)
             {
                 MessageBox.Show("Bitte Lade erst die Settings oder Lege im Tab Farben und co die Farben fürs Rad Fest.")
                 ;
-                    return;
+                return;
             }
             if (f.Visible == false)
             {
@@ -185,7 +185,7 @@ namespace SpieleGlücksrad
                 s.MaxDuration = int.Parse(textBox3.Text);
                 s.MinDuration = int.Parse(textBox2.Text);
                 s.speed = int.Parse(textBox4.Text);
-                f.setSettings(s) ;
+                f.setSettings(s);
                 //f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
                 f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
 
@@ -344,6 +344,21 @@ namespace SpieleGlücksrad
         {
             Form3 ff = new Form3();
             ff.ShowDialog(s);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            s.MinDuration = int.Parse(textBox2.Text);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            s.MaxDuration = int.Parse(textBox3.Text);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            s.speed = int.Parse(textBox4.Text);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace SpieleGlücksrad
         {
             würfel = list.ToArray();
             win = "";
-            deg = 0;
+            //deg = 0;
             n = elements;
             pictureBox1.Invalidate();
             speed = 15;
@@ -162,7 +162,7 @@ namespace SpieleGlücksrad
 
         private void DrawRad(Graphics g, int n)
         {
-            
+
             List<Brush> b = new List<Brush>();
             /*
             b[0] = Brushes.Aqua;
@@ -171,7 +171,7 @@ namespace SpieleGlücksrad
             b[3] = Brushes.Yellow;
             b[4] = Brushes.Violet;
             */
-            foreach(FarbeMitName f in Farben)
+            foreach (FarbeMitName f in Farben)
             {
                 SolidBrush br = new SolidBrush(f.Color);
                 b.Add(br);
