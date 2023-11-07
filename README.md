@@ -6,9 +6,19 @@ Glücksrad um Spiele zb Für einen Challenge stream auszulosen
 Mit dem Aktivieren der Automatisch Streichen Checkbox Wird nach dem Stop des Rades das Item aus der Liste "Gestrichen" (Abgehackt)
 Jedes Stück vom Rad ist einem Item der Liste zugeortnet
 
+## Einfügen in OBS
+
+Hinzufügen der Fensteraufnahme des Glücksrad's Fensters:
+
+![grafik](https://github.com/Bisam97/SpieleGluecksrad/assets/15315141/31287556-06b3-4ed8-80ba-80908bc7a899)
+
+Danach in Filter den Filter Color Key hinzufügen und dem die Folgenen werte geben:
+![grafik](https://github.com/Bisam97/SpieleGluecksrad/assets/15315141/2e877722-803a-4b2f-a099-bfcbde47048a)
+
 ## Benutzen
 
 ![grafik](https://github.com/Bisam97/SpieleGluecksrad/assets/15315141/ebc82540-274a-4b7d-b1b0-87f425e2f58a) 
+
 
 ### Ohne Untergruppe
 
