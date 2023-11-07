@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             groupBox1 = new GroupBox();
+            checkBox2 = new CheckBox();
             button2 = new Button();
             button1 = new Button();
             groupBox2 = new GroupBox();
@@ -78,19 +79,30 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(checkBox2);
             groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(115, 96);
+            groupBox1.Size = new Size(115, 105);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Laden";
             groupBox1.Enter += groupBox1_Enter;
             // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(11, 80);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(83, 19);
+            checkBox2.TabIndex = 2;
+            checkBox2.Text = "Reload List";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
             // button2
             // 
-            button2.Location = new Point(11, 61);
+            button2.Location = new Point(11, 51);
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
             button2.TabIndex = 1;
@@ -100,7 +112,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(11, 23);
+            button1.Location = new Point(11, 22);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
             button1.TabIndex = 0;
@@ -114,14 +126,14 @@
             groupBox2.Controls.Add(button3);
             groupBox2.Location = new Point(133, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(115, 96);
+            groupBox2.Size = new Size(115, 105);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Speichern";
             // 
             // button4
             // 
-            button4.Location = new Point(11, 23);
+            button4.Location = new Point(6, 22);
             button4.Name = "button4";
             button4.Size = new Size(100, 23);
             button4.TabIndex = 1;
@@ -131,7 +143,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(11, 61);
+            button3.Location = new Point(6, 51);
             button3.Name = "button3";
             button3.Size = new Size(100, 23);
             button3.TabIndex = 0;
@@ -154,7 +166,7 @@
             groupBox3.Controls.Add(button10);
             groupBox3.Controls.Add(textBox1);
             groupBox3.Controls.Add(button5);
-            groupBox3.Location = new Point(12, 114);
+            groupBox3.Location = new Point(12, 123);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(236, 124);
             groupBox3.TabIndex = 3;
@@ -192,7 +204,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 363);
+            label1.Location = new Point(12, 372);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 4;
@@ -216,7 +228,7 @@
             // 
             groupBox4.Controls.Add(button9);
             groupBox4.Controls.Add(button6);
-            groupBox4.Location = new Point(12, 244);
+            groupBox4.Location = new Point(12, 253);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(236, 87);
             groupBox4.TabIndex = 5;
@@ -235,7 +247,7 @@
             // 
             // button6
             // 
-            button6.Location = new Point(11, 21);
+            button6.Location = new Point(11, 22);
             button6.Name = "button6";
             button6.Size = new Size(198, 23);
             button6.TabIndex = 0;
@@ -245,7 +257,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(12, 341);
+            button7.Location = new Point(12, 350);
             button7.Name = "button7";
             button7.Size = new Size(236, 59);
             button7.TabIndex = 6;
@@ -256,7 +268,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(12, 431);
+            button8.Location = new Point(12, 440);
             button8.Name = "button8";
             button8.Size = new Size(236, 36);
             button8.TabIndex = 7;
@@ -267,7 +279,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(12, 406);
+            checkBox1.Location = new Point(12, 415);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(145, 19);
             checkBox1.TabIndex = 8;
@@ -280,7 +292,7 @@
             groupBox5.Controls.Add(label2);
             groupBox5.Controls.Add(numericUpDown1);
             groupBox5.Controls.Add(button11);
-            groupBox5.Location = new Point(271, 245);
+            groupBox5.Location = new Point(271, 254);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(325, 86);
             groupBox5.TabIndex = 9;
@@ -320,7 +332,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(271, 341);
+            tabControl1.Location = new Point(271, 350);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(325, 126);
@@ -430,6 +442,7 @@
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
@@ -482,5 +495,6 @@
         private Label label4;
         private Label label3;
         private Button button12;
+        private CheckBox checkBox2;
     }
 }
