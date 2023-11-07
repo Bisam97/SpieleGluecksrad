@@ -64,6 +64,7 @@
             textBox3 = new TextBox();
             textBox2 = new TextBox();
             tabPage2 = new TabPage();
+            button12 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -72,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -290,9 +292,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(6, 53);
             label2.Name = "label2";
-            label2.Size = new Size(38, 15);
+            label2.Size = new Size(113, 15);
             label2.TabIndex = 2;
-            label2.Text = "label2";
+            label2.Text = "Hier Steht dann Text";
             // 
             // numericUpDown1
             // 
@@ -384,13 +386,24 @@
             // 
             // tabPage2
             // 
+            tabPage2.BackColor = SystemColors.Control;
+            tabPage2.Controls.Add(button12);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(317, 98);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Text = "Farben und co";
+            // 
+            // button12
+            // 
+            button12.Location = new Point(6, 6);
+            button12.Name = "button12";
+            button12.Size = new Size(125, 23);
+            button12.TabIndex = 0;
+            button12.Text = "Farben ändern";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // Form1
             // 
@@ -424,6 +437,7 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -464,5 +478,6 @@
         private Label label5;
         private Label label4;
         private Label label3;
+        private Button button12;
     }
 }

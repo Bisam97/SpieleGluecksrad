@@ -40,7 +40,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.Lime;
+            pictureBox1.BackColor = Color.White;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(560, 560);
@@ -73,7 +73,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Lime;
+            BackColor = Color.White;
             ClientSize = new Size(586, 584);
             Controls.Add(label1);
             Controls.Add(pictureBox1);

@@ -25,6 +25,7 @@ namespace SpieleGlücksrad
         private bool slowdown;
         int n = 20;
         private int speed = 15;
+        private List<FarbeMitName> Farben;
         private string[]? würfel;
         private string win = "";
         private Form1? form;
@@ -60,7 +61,7 @@ namespace SpieleGlücksrad
         {
             würfel = list.ToArray();
             win = "";
-            //deg = 0;
+            deg = 0;
             n = elements;
             pictureBox1.Invalidate();
             speed = 15;
@@ -70,7 +71,7 @@ namespace SpieleGlücksrad
             tstop = false;
             timer2.Interval = 5000;
             timer3.Interval = 1;
-            timer1.Interval = RandomNumberGenerator.GetInt32(minDauer,maxDauer);
+            timer1.Interval = RandomNumberGenerator.GetInt32(minDauer, maxDauer);
             timer2.Start();
             timer1.Stop();
             timer3.Stop();
@@ -87,11 +88,11 @@ namespace SpieleGlücksrad
         {
 
             Graphics Glücksrad = e.Graphics;
-            Glücksrad.Clear(Color.FromArgb(255, 0, 255, 0));
+            //Glücksrad.Clear(Color.FromArgb(255, 0, 255, 0));
             Glücksrad.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             Glücksrad.TranslateTransform(280, 280);
-            Glücksrad.RotateTransform(deg-90);
+            Glücksrad.RotateTransform(deg - 90);
 
             DrawRad(Glücksrad, n);
 
@@ -135,7 +136,7 @@ namespace SpieleGlücksrad
             deg += speed;
             if (deg >= 360) { deg -= 360; }
 
-            label1.Text = (deg  / degJn).ToString() +" | " + würfel[(int)(deg / degJn) ];
+            label1.Text = (deg / degJn).ToString() + " | " + würfel[(int)(deg / degJn)];
 
             if (slow)
             {
@@ -153,7 +154,7 @@ namespace SpieleGlücksrad
                 if (slowup == 50) { tstop = true; }
                 timer3.Interval = slowup;
             }
-            
+
 
             pictureBox1.Invalidate();
             //label1.Text = slowup.ToString();
@@ -161,19 +162,28 @@ namespace SpieleGlücksrad
 
         private void DrawRad(Graphics g, int n)
         {
-            Brush[] b = new Brush[5];
+            
+            List<Brush> b = new List<Brush>();
+            /*
             b[0] = Brushes.Aqua;
             b[1] = Brushes.Red;
             b[2] = Brushes.Blue;
             b[3] = Brushes.Yellow;
             b[4] = Brushes.Violet;
+            */
+            foreach(FarbeMitName f in Farben)
+            {
+                SolidBrush br = new SolidBrush(f.Color);
+                b.Add(br);
+            }
+
             int ib = 0;
             for (float i = 0; i < 360; i += 360f / n)
             {
 
                 g.FillPie(b[ib], -250, -250, 500, 500, i, 360f / n);
                 ib++;
-                if (ib == 5) { ib = 0; }
+                if (ib == b.Count) { ib = 0; }
             }
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -225,18 +235,19 @@ namespace SpieleGlücksrad
             iBestochen = ListNo;
             bBestochen = true;
         }
-
-        internal string getMinDauer() => minDauer.ToString();
-
-        internal string getMaxDauer() => maxDauer.ToString();
-
-        internal string getSpeed() => speed.ToString();
-
         internal void setMdMdSpeed(int MinDauer, int MaxDauer, int Speed)
         {
             minDauer = MinDauer;
             maxDauer = MaxDauer;
             speed = Speed;
+        }
+
+        internal void setSettings(GrSettings s)
+        {
+            minDauer = s.MinDuration;
+            maxDauer = s.MaxDuration;
+            speed = s.speed;
+            Farben = s.Color;
         }
     }
 }

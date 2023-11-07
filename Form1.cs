@@ -1,15 +1,21 @@
 using Microsoft.VisualBasic;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Soap;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace SpieleGlücksrad
 {
     public partial class Form1 : Form
     {
         private Form2? f;
+        private GrSettings s = new GrSettings();
+        private List<FarbeMitName> colors = new List<FarbeMitName>();
         public Form1()
         {
             InitializeComponent();
             f = new Form2(this);
+            f.setSettings(s);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -18,28 +24,31 @@ namespace SpieleGlücksrad
             if (File.Exists(userProfilePath + "\\Documents\\GlücksradLastOpen.csv"))
             {
                 string s = File.ReadAllText(userProfilePath + "\\Documents\\GlücksradLastOpen.csv");
-                string[] strings = s.Split("\n");
-                checkedListBox1.Items.Clear();
-                for (int i = 0; i < strings.Length; i++)
-                {
-                    string[] stringss = strings[i].Split(";");
-                    string text = stringss[0];
-                    if (stringss[1] == "") { stringss[1] = "false"; }
-                    bool b = Boolean.Parse(stringss[1]);
-                    checkedListBox1.Items.Add(text);
-                    checkedListBox1.SetItemChecked(i, b);
+                LoadFile(s);
 
-                }
-                Prüfe();
-
-                textBox2.Text = f.getMinDauer();
-                textBox3.Text = f.getMaxDauer();
-                textBox4.Text = f.getSpeed();
-
+                textBox2.Text = this.s.MinDuration.ToString();
+                textBox3.Text = this.s.MaxDuration.ToString();
+                textBox4.Text = this.s.speed.ToString();
+                colors = this.s.Color;
             }
 
         }
+        private void LoadFile(string s)
+        {
+            string[] strings = s.Split("\n");
+            checkedListBox1.Items.Clear();
+            for (int i = 0; i < strings.Length; i++)
+            {
+                string[] stringss = strings[i].Split(";");
+                string text = stringss[0];
+                if (stringss[1] == "") { stringss[1] = "false"; }
+                bool b = Boolean.Parse(stringss[1]);
+                checkedListBox1.Items.Add(text);
+                checkedListBox1.SetItemChecked(i, b);
 
+            }
+            Prüfe();
+        }
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
@@ -55,7 +64,7 @@ namespace SpieleGlücksrad
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            
             string s = "";
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
             {
@@ -69,6 +78,7 @@ namespace SpieleGlücksrad
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string filep = saveFileDialog1.FileName;
+                this.s.Path = filep;
                 File.WriteAllText(filep, s);
             }
 
@@ -96,17 +106,7 @@ namespace SpieleGlücksrad
             {
                 string filep = openFileDialog1.FileName;
                 string s = File.ReadAllText(filep);
-                string[] strings = s.Split("\n", StringSplitOptions.RemoveEmptyEntries);
-
-                checkedListBox1.Items.Clear();
-                for (int i = 0; i < strings.Length; i++)
-                {
-                    string[] stringss = strings[i].Split(";");
-                    string text = stringss[0];
-                    bool b = Boolean.Parse(stringss[1]);
-                    checkedListBox1.Items.Add(text);
-                    checkedListBox1.SetItemChecked(i, b);
-                }
+                LoadFile(s);
             }
             Prüfe();
 
@@ -114,21 +114,48 @@ namespace SpieleGlücksrad
 
         private void button2_Click(object sender, EventArgs e)
         {
+           //LOAD
             toolTip1.RemoveAll();
             toolTip1.InitialDelay = 0;
             toolTip1.SetToolTip(button2, "Work on Progness");
+
+            Stream stream = File.Open("test.xml", FileMode.Open);
+
+            SoapFormatter formatter = new SoapFormatter();
+            s = (GrSettings)formatter.Deserialize(stream);
+            stream.Close();
+            f.setSettings(s);
+            if (File.Exists(s.Path))
+            {
+                string s = File.ReadAllText(this.s.Path);
+                LoadFile(s);
+            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //SAVE
             toolTip1.RemoveAll();
             toolTip1.InitialDelay = 0;
             toolTip1.SetToolTip(button3, "Work on Progness");
+
+            Stream stream = File.Open("test.xml", FileMode.Create);
+            SoapFormatter formatter = new SoapFormatter();
+            formatter.Serialize(stream, s);
+            stream.Close();
+
+
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            if(s.Color.Count == 0) 
+            {
+                MessageBox.Show("Bitte Lade erst die Settings oder Lege im Tab Farben und co die Farben fürs Rad Fest.")
+                ;
+                    return;
+            }
             if (f.Visible == false)
             {
 
@@ -138,8 +165,11 @@ namespace SpieleGlücksrad
             }
             else
             {
-
-                f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
+                s.MaxDuration = int.Parse(textBox3.Text);
+                s.MinDuration = int.Parse(textBox2.Text);
+                s.speed = int.Parse(textBox4.Text);
+                f.setSettings(s) ;
+                //f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
                 f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
 
             }
@@ -282,6 +312,7 @@ namespace SpieleGlücksrad
 
         private void checkedListBox1_MouseClick(object sender, MouseEventArgs e)
         {
+            numericUpDown1.Maximum = checkedListBox1.Items.Count;
             int i = MakeList().IndexOf(checkedListBox1.Items[checkedListBox1.SelectedIndex].ToString());
             if (i > -1)
             {
@@ -290,6 +321,12 @@ namespace SpieleGlücksrad
 
 
 
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Form3 ff = new Form3();
+            ff.ShowDialog(s);
         }
     }
 }
