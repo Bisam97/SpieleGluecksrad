@@ -265,20 +265,11 @@ namespace SpieleGlücksrad
 
                 File.WriteAllText(userProfilePath + "\\Documents\\GlücksradLastOpen.csv", s);
             }
-
-
-
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            checkedListBox1.Items.Clear();
-        }
+        private void button9_Click(object sender, EventArgs e) => checkedListBox1.Items.Clear();
 
-        public bool IsAutoStreich()
-        {
-            return checkBox1.Checked;
-        }
+        public bool IsAutoStreich() => checkBox1.Checked;
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -301,17 +292,11 @@ namespace SpieleGlücksrad
             if (checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count <= 0) { button7.Enabled = false; } else { button7.Enabled = true; }
         }
 
-        private void button7_MouseEnter(object sender, EventArgs e)
-        {
-            Prüfe();
-        }
+        private void button7_MouseEnter(object sender, EventArgs e) => Prüfe();
 
 
 
-        private void checkedListBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            Prüfe();
-        }
+        private void checkedListBox1_MouseMove(object sender, MouseEventArgs e) => Prüfe();
 
         private void button10_Click(object sender, EventArgs e)
         {
@@ -342,9 +327,6 @@ namespace SpieleGlücksrad
             {
                 numericUpDown1.Value = i + 1;
             }
-
-
-
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -353,19 +335,10 @@ namespace SpieleGlücksrad
             ff.ShowDialog(s);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            s.MinDuration = int.Parse(textBox2.Text);
-        }
+        private void textBox2_TextChanged(object sender, EventArgs e) => s.MinDuration = int.Parse(textBox2.Text);
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            s.MaxDuration = int.Parse(textBox3.Text);
-        }
+        private void textBox3_TextChanged(object sender, EventArgs e) => s.MaxDuration = int.Parse(textBox3.Text);
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            s.speed = int.Parse(textBox4.Text);
-        }
+        private void textBox4_TextChanged(object sender, EventArgs e) => s.speed = int.Parse(textBox4.Text);
     }
 }
