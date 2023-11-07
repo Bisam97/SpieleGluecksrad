@@ -134,6 +134,11 @@ namespace SpieleGlücksrad
                 s = (GrSettings)formatter.Deserialize(stream);
                 stream.Close();
                 f.setSettings(s);
+
+                textBox2.Text=s.MinDuration.ToString();
+                textBox3.Text=s.MaxDuration.ToString();
+                textBox4.Text=s.speed.ToString();
+
                 if (File.Exists(s.Path) && checkBox2.Checked)
                 {
                     string s = File.ReadAllText(this.s.Path);
