@@ -74,6 +74,7 @@ namespace SpieleGlücksrad
 
             saveFileDialog1.Title = "Save to CSV";
             saveFileDialog1.Filter = "Comma-separated values|*.csv";
+            saveFileDialog1.FileName = "";
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -101,6 +102,7 @@ namespace SpieleGlücksrad
         {
             openFileDialog1.Title = "Import CSV File";
             openFileDialog1.Filter = "Comma-separated values|*.csv";
+            openFileDialog1.FileName = "";
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
