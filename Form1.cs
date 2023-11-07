@@ -132,7 +132,7 @@ namespace SpieleGlücksrad
                 s = (GrSettings)formatter.Deserialize(stream);
                 stream.Close();
                 f.setSettings(s);
-                if (File.Exists(s.Path))
+                if (File.Exists(s.Path) && checkBox2.Checked)
                 {
                     string s = File.ReadAllText(this.s.Path);
                     LoadFile(s);
