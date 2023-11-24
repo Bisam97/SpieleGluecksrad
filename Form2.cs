@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +36,9 @@ namespace SpieleGlücksrad
         private bool bBestochen;
         private int maxDauer = 10000;
         private int minDauer = 5000;
+        private SoundPlayer Sound = new SoundPlayer(Properties.Resource1.wheel_spin_click);
+        private int oldtick = 0;
+        private int newtick = 0;
 
         public Form2(Form1 f)
         {
@@ -55,6 +60,7 @@ namespace SpieleGlücksrad
             points[1].Y = 10;
             points[2].X = 0;
             points[2].Y = 50;
+            
 
         }
         public void spin(int elements, List<string> list)
@@ -77,8 +83,8 @@ namespace SpieleGlücksrad
             timer3.Stop();
             //label1.Text = (360f / n).ToString();
             degJn = 360f / n;
-
-
+            //Sound.Play();
+            
 
 
 
@@ -136,8 +142,13 @@ namespace SpieleGlücksrad
             deg += speed;
             if (deg >= 360) { deg -= 360; }
 
-            label1.Text = (deg / degJn).ToString() + " | " + würfel[(int)(deg / degJn)];
-
+            // label1.Text = (deg / degJn).ToString() + " | " + würfel[(int)(deg / degJn)];
+            newtick =  ((int)(deg / degJn));
+            if (newtick != oldtick)
+            {
+                Sound.Play();
+                oldtick = newtick;
+            }
             if (slow)
             {
                 slowup += 1;
