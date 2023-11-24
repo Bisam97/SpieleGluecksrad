@@ -308,7 +308,7 @@ namespace SpieleGlücksrad
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDown1.Maximum = checkedListBox1.Items.Count;
+            numericUpDown1.Maximum = checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count;
 
             label2.Text = MakeList()[(int)numericUpDown1.Value - 1].ToString();
         }
@@ -335,10 +335,48 @@ namespace SpieleGlücksrad
             ff.ShowDialog(s);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e) => s.MinDuration = int.Parse(textBox2.Text);
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            int res;
+            if (!int.TryParse(textBox2.Text, out res))
+            {
 
-        private void textBox3_TextChanged(object sender, EventArgs e) => s.MaxDuration = int.Parse(textBox3.Text);
+                toolTip1.RemoveAll();
+                toolTip1.InitialDelay = 0;
+                toolTip1.SetToolTip(textBox2, "Bitte nur Zahlen eingeben");
+                s.MinDuration = 5000;
+                textBox2.Text = 5000.ToString();
 
-        private void textBox4_TextChanged(object sender, EventArgs e) => s.speed = int.Parse(textBox4.Text);
+            }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            int res;
+            if (!int.TryParse(textBox3.Text, out res))
+            {
+
+                toolTip1.RemoveAll();
+                toolTip1.InitialDelay = 0;
+                toolTip1.SetToolTip(textBox3, "Bitte nur Zahlen eingeben");
+                s.MaxDuration = 10000;
+                textBox3.Text = 10000.ToString();
+
+            }
+        }
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            int res;
+            if (!int.TryParse(textBox4.Text, out res))
+            {
+
+                toolTip1.RemoveAll();
+                toolTip1.InitialDelay = 0;
+                toolTip1.SetToolTip(textBox4, "Bitte nur Zahlen eingeben");
+                s.speed = 15;
+                textBox4.Text = 15.ToString();
+
+            }
+        }
     }
 }
