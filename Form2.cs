@@ -108,15 +108,15 @@ namespace SpieleGlücksrad
             if (win != "")
             {
 
-                Glücksrad.FillRectangle(Brushes.Black, -200, 175, 400, 200);
+                //Glücksrad.FillRectangle(Brushes.Black, -200, 175, 400, 200);
                 Font bisa = new Font("Arial", 25, FontStyle.Bold);
                 RectangleF rf = new RectangleF();
-                rf.Width = 350;
+                rf.Width = 575;
                 rf.Height = 150;
-                rf.X = -175;
-                rf.Y = 200;
+                rf.X = -250;
+                rf.Y = 550;
 
-                Glücksrad.DrawString(win, bisa, Brushes.White, rf);
+                Glücksrad.DrawString(win, bisa, Brushes.Black, rf);
             }
             Glücksrad.Save();
 
