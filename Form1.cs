@@ -341,11 +341,20 @@ namespace SpieleGlücksrad
             if (!int.TryParse(textBox2.Text, out res))
             {
 
-                toolTip1.RemoveAll();
-                toolTip1.InitialDelay = 0;
-                toolTip1.SetToolTip(textBox2, "Bitte nur Zahlen eingeben");
-                s.MinDuration = 5000;
-                textBox2.Text = 5000.ToString();
+                
+                if (textBox2.Text == "")
+                {
+                    s.MinDuration = 1;
+                }
+                else
+                {
+                    s.MinDuration = 5000;
+                    textBox2.Text = 5000.ToString();
+                    toolTip1.RemoveAll();
+                    toolTip1.InitialDelay = 0;
+                    toolTip1.SetToolTip(textBox2, "Bitte nur Zahlen eingeben");
+                }
+                
 
             }
         }
@@ -356,11 +365,20 @@ namespace SpieleGlücksrad
             if (!int.TryParse(textBox3.Text, out res))
             {
 
-                toolTip1.RemoveAll();
-                toolTip1.InitialDelay = 0;
-                toolTip1.SetToolTip(textBox3, "Bitte nur Zahlen eingeben");
-                s.MaxDuration = 10000;
-                textBox3.Text = 10000.ToString();
+                
+                if (textBox3.Text == "")
+                {
+                    s.MaxDuration = 100;
+                }
+                else
+                {
+                    s.MaxDuration = 10000;
+                    textBox3.Text = 10000.ToString();
+                    toolTip1.RemoveAll();
+                    toolTip1.InitialDelay = 0;
+                    toolTip1.SetToolTip(textBox3, "Bitte nur Zahlen eingeben");
+                }
+                
 
             }
         }
@@ -370,11 +388,20 @@ namespace SpieleGlücksrad
             if (!int.TryParse(textBox4.Text, out res))
             {
 
-                toolTip1.RemoveAll();
-                toolTip1.InitialDelay = 0;
-                toolTip1.SetToolTip(textBox4, "Bitte nur Zahlen eingeben");
-                s.speed = 15;
-                textBox4.Text = 15.ToString();
+                
+                if (textBox4.Text == "")
+                {
+                    s.speed = 15;
+                }
+                else
+                {
+                    s.speed = 15;
+                    textBox4.Text = 15.ToString();
+                    toolTip1.RemoveAll();
+                    toolTip1.InitialDelay = 0;
+                    toolTip1.SetToolTip(textBox4, "Bitte nur Zahlen eingeben");
+                }
+                
 
             }
         }
