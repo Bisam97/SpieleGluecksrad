@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.InteropServices;
 
 namespace SpieleGlücksrad
 {
@@ -26,9 +27,10 @@ namespace SpieleGlücksrad
                 string s = File.ReadAllText(userProfilePath + "\\Documents\\GlücksradLastOpen.csv");
                 LoadFile(s);
 
-                textBox2.Text = this.s.MinDuration.ToString();
-                textBox3.Text = this.s.MaxDuration.ToString();
+                textBox2.Text = ((float)this.s.MinDuration / 1000).ToString();
+                textBox3.Text = ((float)this.s.MaxDuration / 1000).ToString();
                 textBox4.Text = this.s.speed.ToString();
+                textBox5.Text = ((float)this.s.verzögerung / 1000).ToString();
                 colors = this.s.Color;
             }
 
@@ -134,10 +136,13 @@ namespace SpieleGlücksrad
                 s = (GrSettings)formatter.Deserialize(stream);
                 stream.Close();
                 f.setSettings(s);
+                if (s.verzögerung == 0) { s.verzögerung = 1000; }
 
-                textBox2.Text=s.MinDuration.ToString();
-                textBox3.Text=s.MaxDuration.ToString();
-                textBox4.Text=s.speed.ToString();
+                textBox2.Text = ((float)s.MinDuration / 1000).ToString();
+                textBox3.Text = ((float)s.MaxDuration / 1000).ToString();
+                textBox4.Text = s.speed.ToString();
+                textBox5.Text = ((float)s.verzögerung / 1000).ToString();
+                
 
                 if (File.Exists(s.Path) && checkBox2.Checked)
                 {
@@ -189,9 +194,9 @@ namespace SpieleGlücksrad
             }
             else
             {
-                s.MaxDuration = int.Parse(textBox3.Text);
-                s.MinDuration = int.Parse(textBox2.Text);
-                s.speed = int.Parse(textBox4.Text);
+                s.MaxDuration = (int)(float.Parse(textBox3.Text) * 1000);
+                s.MinDuration = (int)(float.Parse(textBox2.Text) * 1000);
+                s.speed = (int)(float.Parse(textBox4.Text) * 1000);
                 f.setSettings(s);
                 //f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
                 f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
@@ -310,7 +315,15 @@ namespace SpieleGlücksrad
         {
             numericUpDown1.Maximum = checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count;
 
-            label2.Text = MakeList()[(int)numericUpDown1.Value - 1].ToString();
+            if (MakeList().Count > 0)
+            {
+
+
+                label2.Text = MakeList()[(int)numericUpDown1.Value - 1].ToString();
+
+
+
+            }
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -337,11 +350,11 @@ namespace SpieleGlücksrad
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            int res;
-            if (!int.TryParse(textBox2.Text, out res))
+            float res;
+            if (!float.TryParse(textBox2.Text, out res))
             {
 
-                
+
                 if (textBox2.Text == "")
                 {
                     s.MinDuration = 1;
@@ -349,23 +362,23 @@ namespace SpieleGlücksrad
                 else
                 {
                     s.MinDuration = 5000;
-                    textBox2.Text = 5000.ToString();
+                    textBox2.Text = 5.ToString();
                     toolTip1.RemoveAll();
                     toolTip1.InitialDelay = 0;
                     toolTip1.SetToolTip(textBox2, "Bitte nur Zahlen eingeben");
                 }
-                
+
 
             }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            int res;
-            if (!int.TryParse(textBox3.Text, out res))
+            float res;
+            if (!float.TryParse(textBox3.Text, out res))
             {
 
-                
+
                 if (textBox3.Text == "")
                 {
                     s.MaxDuration = 100;
@@ -373,22 +386,22 @@ namespace SpieleGlücksrad
                 else
                 {
                     s.MaxDuration = 10000;
-                    textBox3.Text = 10000.ToString();
+                    textBox3.Text = 10.ToString();
                     toolTip1.RemoveAll();
                     toolTip1.InitialDelay = 0;
                     toolTip1.SetToolTip(textBox3, "Bitte nur Zahlen eingeben");
                 }
-                
+
 
             }
         }
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            int res;
-            if (!int.TryParse(textBox4.Text, out res))
+            float res;
+            if (!float.TryParse(textBox4.Text, out res))
             {
 
-                
+
                 if (textBox4.Text == "")
                 {
                     s.speed = 15;
@@ -401,7 +414,36 @@ namespace SpieleGlücksrad
                     toolTip1.InitialDelay = 0;
                     toolTip1.SetToolTip(textBox4, "Bitte nur Zahlen eingeben");
                 }
-                
+
+
+            }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            float res;
+            if (!float.TryParse(textBox5.Text, out res))
+            {
+
+
+                if (textBox5.Text == "")
+                {
+                    s.verzögerung = 100;
+                }
+                else
+                {
+                    s.verzögerung = 1000;
+                    textBox5.Text = 1.ToString();
+                    toolTip1.RemoveAll();
+                    toolTip1.InitialDelay = 0;
+                    toolTip1.SetToolTip(textBox3, "Bitte nur Zahlen eingeben");
+                }
+                if (textBox5.Text == "0")
+                {
+                    s.verzögerung = 1000;
+                    textBox5.Text = "1";
+                }
+
 
             }
         }

@@ -59,6 +59,8 @@
             button11 = new Button();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label6 = new Label();
+            textBox5 = new TextBox();
             label5 = new Label();
             label3 = new Label();
             textBox4 = new TextBox();
@@ -213,7 +215,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(119, 66);
+            label4.Location = new Point(66, 66);
             label4.Name = "label4";
             label4.Size = new Size(181, 15);
             label4.TabIndex = 4;
@@ -335,12 +337,14 @@
             tabControl1.Location = new Point(271, 350);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(325, 126);
+            tabControl1.Size = new Size(325, 147);
             tabControl1.TabIndex = 10;
             // 
             // tabPage1
             // 
             tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(textBox5);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
@@ -350,34 +354,52 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(317, 98);
+            tabPage1.Size = new Size(317, 119);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Geschwindichkeit und Timer";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(66, 93);
+            label6.Name = "label6";
+            label6.Size = new Size(168, 15);
+            label6.TabIndex = 7;
+            label6.Text = "Start Verzögerung in Sekunden";
+            // 
+            // textBox5
+            // 
+            textBox5.BorderStyle = BorderStyle.FixedSingle;
+            textBox5.Location = new Point(6, 91);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(51, 23);
+            textBox5.TabIndex = 6;
+            textBox5.TextChanged += textBox5_TextChanged;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(119, 37);
+            label5.Location = new Point(66, 37);
             label5.Name = "label5";
-            label5.Size = new Size(139, 15);
+            label5.Size = new Size(174, 15);
             label5.TabIndex = 5;
-            label5.Text = "Längste Drehdauer in MS";
+            label5.Text = "Längste Drehdauer in Sekunden";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(119, 8);
+            label3.Location = new Point(66, 8);
             label3.Name = "label3";
-            label3.Size = new Size(142, 15);
+            label3.Size = new Size(177, 15);
             label3.TabIndex = 3;
-            label3.Text = "Kürzeste Drehdauer in MS";
+            label3.Text = "Kürzeste Drehdauer in Sekunden";
             // 
             // textBox4
             // 
             textBox4.BorderStyle = BorderStyle.FixedSingle;
             textBox4.Location = new Point(6, 64);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
+            textBox4.Size = new Size(51, 23);
             textBox4.TabIndex = 2;
             textBox4.TextChanged += textBox4_TextChanged;
             // 
@@ -386,7 +408,7 @@
             textBox3.BorderStyle = BorderStyle.FixedSingle;
             textBox3.Location = new Point(6, 35);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
+            textBox3.Size = new Size(51, 23);
             textBox3.TabIndex = 1;
             textBox3.TextChanged += textBox3_TextChanged;
             // 
@@ -395,7 +417,7 @@
             textBox2.BorderStyle = BorderStyle.FixedSingle;
             textBox2.Location = new Point(6, 6);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
+            textBox2.Size = new Size(51, 23);
             textBox2.TabIndex = 0;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
@@ -406,7 +428,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(317, 98);
+            tabPage2.Size = new Size(317, 119);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Farben und co";
             // 
@@ -424,7 +446,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(608, 485);
+            ClientSize = new Size(608, 529);
             Controls.Add(tabControl1);
             Controls.Add(groupBox5);
             Controls.Add(checkBox1);
@@ -496,5 +518,7 @@
         private Label label3;
         private Button button12;
         private CheckBox checkBox2;
+        private Label label6;
+        private TextBox textBox5;
     }
 }

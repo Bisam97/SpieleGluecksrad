@@ -28,6 +28,7 @@ namespace SpieleGlücksrad
         int n = 20;
         private int speed = 15;
         private List<FarbeMitName> Farben;
+        private int verzögerung;
         private string[]? würfel;
         private string win = "";
         private Form1? form;
@@ -39,6 +40,7 @@ namespace SpieleGlücksrad
         private SoundPlayer Sound = new SoundPlayer(Properties.Resource1.wheel_spin_click);
         private int oldtick = 0;
         private int newtick = 0;
+        private int tickSoundtime;
 
         public Form2(Form1 f)
         {
@@ -60,7 +62,7 @@ namespace SpieleGlücksrad
             points[1].Y = 10;
             points[2].X = 0;
             points[2].Y = 50;
-            
+
 
         }
         public void spin(int elements, List<string> list)
@@ -70,12 +72,12 @@ namespace SpieleGlücksrad
             //deg = 0;
             n = elements;
             pictureBox1.Invalidate();
-            speed = 15;
+            //speed = 15;
             slowdown = false;
             slowup = 0;
             slow = false;
             tstop = false;
-            timer2.Interval = 5000;
+            timer2.Interval = verzögerung;
             timer3.Interval = 1;
             timer1.Interval = RandomNumberGenerator.GetInt32(minDauer, maxDauer);
             timer2.Start();
@@ -84,7 +86,7 @@ namespace SpieleGlücksrad
             //label1.Text = (360f / n).ToString();
             degJn = 360f / n;
             //Sound.Play();
-            
+
 
 
 
@@ -118,7 +120,7 @@ namespace SpieleGlücksrad
                 Font bisa = new Font("Arial", 25, FontStyle.Bold);
                 RectangleF rf = new RectangleF();
                 rf.Width = 575;
-                rf.Height = 150;
+                rf.Height = 200;
                 rf.X = -250;
                 rf.Y = 550;
 
@@ -143,11 +145,25 @@ namespace SpieleGlücksrad
             if (deg >= 360) { deg -= 360; }
 
             // label1.Text = (deg / degJn).ToString() + " | " + würfel[(int)(deg / degJn)];
-            newtick =  ((int)(deg / degJn));
+            newtick = ((int)(deg / degJn));
+            label1.Text = newtick + "   |    " + oldtick;
             if (newtick != oldtick)
             {
-                Sound.Play();
-                oldtick = newtick;
+                if (speed > 5 || speed > 1 && würfel.Length > 25 && slowup < 20)
+                {
+                    if (tickSoundtime == 0)
+                    {
+                        Sound.Play();
+                        oldtick = newtick;
+                        tickSoundtime = 5;
+                    }
+                    else { tickSoundtime--; }
+                }
+                else
+                {
+                    Sound.Play();
+                    oldtick = newtick;
+                }
             }
             if (slow)
             {
@@ -246,12 +262,7 @@ namespace SpieleGlücksrad
             iBestochen = ListNo;
             bBestochen = true;
         }
-        internal void setMdMdSpeed(int MinDauer, int MaxDauer, int Speed)
-        {
-            minDauer = MinDauer;
-            maxDauer = MaxDauer;
-            speed = Speed;
-        }
+
 
         internal void setSettings(GrSettings s)
         {
@@ -259,6 +270,7 @@ namespace SpieleGlücksrad
             maxDauer = s.MaxDuration;
             speed = s.speed;
             Farben = s.Color;
+            verzögerung = s.verzögerung;
         }
     }
 }

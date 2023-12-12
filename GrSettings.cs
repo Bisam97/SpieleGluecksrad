@@ -11,6 +11,8 @@ namespace SpieleGlücksrad
             speed = 15;
             MaxDuration = 10000;
             MinDuration = 5000;
+            verzögerung = 1000;
+
 
         }
 
@@ -19,6 +21,7 @@ namespace SpieleGlücksrad
         public int MaxDuration { get; set; }
         public int MinDuration { get; set; }
         public string Path { get; set; }
+        public int verzögerung { get; set; }
 
     }
 }
