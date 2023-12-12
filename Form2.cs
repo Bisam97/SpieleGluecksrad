@@ -146,7 +146,7 @@ namespace SpieleGlücksrad
 
             // label1.Text = (deg / degJn).ToString() + " | " + würfel[(int)(deg / degJn)];
             newtick = ((int)(deg / degJn));
-            label1.Text = newtick + "   |    " + oldtick;
+            label1.Text = speed + " | " + slowup;
             if (newtick != oldtick)
             {
                 if (speed > 5 || speed > 1 && würfel.Length > 25 && slowup < 20)

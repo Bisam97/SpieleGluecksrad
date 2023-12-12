@@ -196,7 +196,8 @@ namespace SpieleGlücksrad
             {
                 s.MaxDuration = (int)(float.Parse(textBox3.Text) * 1000);
                 s.MinDuration = (int)(float.Parse(textBox2.Text) * 1000);
-                s.speed = (int)(float.Parse(textBox4.Text) * 1000);
+                s.verzögerung = (int)(float.Parse(textBox5.Text) * 1000);
+                s.speed = (int.Parse(textBox4.Text));
                 f.setSettings(s);
                 //f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
                 f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
