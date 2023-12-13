@@ -33,7 +33,7 @@ namespace SpieleGlücksrad
         private string win = "";
         private Form1? form;
         private double degJn;
-        private int iBestochen;
+        private string sBestochen;
         private bool bBestochen;
         private int maxDauer = 10000;
         private int minDauer = 5000;
@@ -171,7 +171,7 @@ namespace SpieleGlücksrad
                 if (bBestochen && slowup >= 48)
                 {
                     slowup = 48;
-                    if ((int)(deg / degJn) == iBestochen)
+                    if (würfel[(int)(deg / degJn)] == sBestochen)
                     {
                         slowup = 50;
                         bBestochen = false;
@@ -257,9 +257,9 @@ namespace SpieleGlücksrad
             form.save();
             form.Close();
         }
-        public void Bestochen(int ListNo)
+        public void Bestochen(string ListNo)
         {
-            iBestochen = ListNo;
+            sBestochen = ListNo;
             bBestochen = true;
         }
 

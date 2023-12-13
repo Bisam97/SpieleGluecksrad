@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Soap;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
+using System.Configuration;
 
 namespace SpieleGlücksrad
 {
@@ -17,6 +18,29 @@ namespace SpieleGlücksrad
             InitializeComponent();
             f = new Form2(this);
             f.setSettings(s);
+
+            // Spalten hinzufügen
+            dataGridView1.AllowUserToAddRows = false;
+            
+
+
+
+            // Spalte 1: Checkbox
+            DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
+            dataGridView1.Columns.Add(checkboxColumn);
+            checkboxColumn.HeaderText = "Gestrichen";
+            checkboxColumn.Width = 60;
+
+            // Spalte 2: String
+            dataGridView1.Columns.Add("StringColumn", "Text");
+            DataGridViewTextBoxColumn stringColumn = (DataGridViewTextBoxColumn)dataGridView1.Columns["StringColumn"];
+            stringColumn.Width = 200;
+
+            // Spalte 3: NumericUpDown
+            DataGridViewNumericUpDownColumn numericUpDownColumn = new DataGridViewNumericUpDownColumn();
+            dataGridView1.Columns.Add(numericUpDownColumn);
+            numericUpDownColumn.HeaderText = "Wichtung";
+            numericUpDownColumn.Width = 80;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -32,21 +56,43 @@ namespace SpieleGlücksrad
                 textBox4.Text = this.s.speed.ToString();
                 textBox5.Text = ((float)this.s.verzögerung / 1000).ToString();
                 colors = this.s.Color;
+
+
+
             }
 
         }
         private void LoadFile(string s)
         {
             string[] strings = s.Split("\n");
-            checkedListBox1.Items.Clear();
+            dataGridView1.Rows.Clear();
+            // checkedListBox1.Items.Clear();
+            if (strings[0] == "SaveTypeVersion=2")
+            {
+                string test = s.Substring(18);
+                strings = s.Substring(18).Split("\n");
+            }
             for (int i = 0; i < strings.Length; i++)
             {
+
+
                 string[] stringss = strings[i].Split(";");
                 string text = stringss[0];
+                int gewichtung;
+                try
+                {
+                    gewichtung = int.Parse(stringss[2]);
+                }
+                catch (Exception)
+                {
+
+                    gewichtung = 1;
+                }
                 if (stringss[1] == "") { stringss[1] = "false"; }
                 bool b = Boolean.Parse(stringss[1]);
-                checkedListBox1.Items.Add(text);
-                checkedListBox1.SetItemChecked(i, b);
+                dataGridView1.Rows.Add(b, text, gewichtung);
+                //checkedListBox1.Items.Add(text);
+                //checkedListBox1.SetItemChecked(i, b);
 
             }
             Prüfe();
@@ -58,7 +104,8 @@ namespace SpieleGlücksrad
 
         private void button5_Click(object sender, EventArgs e)
         {
-            int v = checkedListBox1.Items.Add(textBox1.Text, 0);
+            int v = dataGridView1.Rows.Add(textBox1.Text, 0, 1);
+            //int v = checkedListBox1.Items.Add(textBox1.Text, 0);
             label1.Text = "Added as Number: " + v;
             Prüfe();
             textBox1.Clear();
@@ -67,13 +114,26 @@ namespace SpieleGlücksrad
         private void button4_Click(object sender, EventArgs e)
         {
 
-            string s = "";
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            string s = "SaveTypeVersion=2";
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (i > 0) { s += "\n"; }
-                s += checkedListBox1.Items[i] + ";" + checkedListBox1.GetItemChecked(i);
-            }
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                if (Checkbox != null && numericUpDown1 != null && textbox != null)
+                {
+                    s += "\n";
+                    s += textbox.Value.ToString() + ";" + Checkbox.Value.ToString() + ";" + numericUpDownCell.Value.ToString();
 
+                }
+            }
+            /*  
+              for (int i = 0; i < checkedListBox1.Items.Count; i++)
+              {
+                  if (i > 0) { s += "\n"; }
+                  s += checkedListBox1.Items[i] + ";" + checkedListBox1.GetItemChecked(i);
+              }
+            */
             saveFileDialog1.Title = "Save to CSV";
             saveFileDialog1.Filter = "Comma-separated values|*.csv";
             saveFileDialog1.FileName = "";
@@ -89,13 +149,20 @@ namespace SpieleGlücksrad
 
         private void button6_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                int i = dataGridView1.SelectedCells[0].RowIndex;
+                label1.Text = "Item no " + i + "(" + dataGridView1.SelectedColumns[1] + ") Gelöscht";
+                dataGridView1.Rows.RemoveAt(i);
 
-            int i = checkedListBox1.SelectedIndex;
+            }
+            /*int i = checkedListBox1.SelectedIndex;
             if (i > -1)
             {
                 label1.Text = "Item no " + i + "(" + checkedListBox1.Items[checkedListBox1.SelectedIndex] + ") Gelöscht";
                 checkedListBox1.Items.RemoveAt(checkedListBox1.SelectedIndex);
             }
+            */
             Prüfe();
 
         }
@@ -142,7 +209,7 @@ namespace SpieleGlücksrad
                 textBox3.Text = ((float)s.MaxDuration / 1000).ToString();
                 textBox4.Text = s.speed.ToString();
                 textBox5.Text = ((float)s.verzögerung / 1000).ToString();
-                
+
 
                 if (File.Exists(s.Path) && checkBox2.Checked)
                 {
@@ -200,7 +267,23 @@ namespace SpieleGlücksrad
                 s.speed = (int.Parse(textBox4.Text));
                 f.setSettings(s);
                 //f.setMdMdSpeed(int.Parse(textBox2.Text), int.Parse(textBox2.Text), int.Parse(textBox2.Text));
-                f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
+                int anzahlPices;
+                anzahlPices = 0;
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                    if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
+                    {
+                        DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                        if (numericUpDownCell != null)
+                        {
+                            anzahlPices += Convert.ToInt32(numericUpDownCell.Value);
+                        }
+                    }
+                }
+                f.spin(anzahlPices, MakeList());
+
+                //f.spin(checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count, MakeList());
 
             }
 
@@ -209,12 +292,41 @@ namespace SpieleGlücksrad
         private List<string> MakeList()
         {
             List<string> notCheckedItem = new List<string>();
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (!checkedListBox1.GetItemChecked(i))
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
                 {
-                    notCheckedItem.Add(checkedListBox1.Items[i].ToString());
-                    // Hier können Sie das nicht angeklickte Element weiterverarbeiten.
+                    DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                    if (numericUpDownCell != null)
+                    {
+                        DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                        for (int ii = 0; ii < Convert.ToInt32(numericUpDownCell.Value); ii++)
+                        {
+                            notCheckedItem.Add(textbox.Value.ToString());
+                        }
+                    }
+                }
+            }
+            return notCheckedItem;
+        }
+        private List<string> MakeoneList()
+        {
+            List<string> notCheckedItem = new List<string>();
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
+                {
+                    DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                    if (numericUpDownCell != null)
+                    {
+                        DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                        if (textbox != null)
+                        {
+                            notCheckedItem.Add(textbox.Value.ToString());
+                        }
+                    }
                 }
             }
             return notCheckedItem;
@@ -229,6 +341,35 @@ namespace SpieleGlücksrad
         }
         public void save()
         {
+            if (dataGridView1.Rows.Count != 0)
+            {
+
+                string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                MessageBox.Show("Daten werden in '" + userProfilePath + "\\Documents\\GlücksradClosed.csv' Gespeichert.");
+
+                string s = "SaveTypeVersion=2";
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                    DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                    DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                    if (Checkbox != null && numericUpDown1 != null && textbox != null)
+                    {
+                        s += "\n";
+                        s += textbox.Value.ToString() + ";" + Checkbox.Value.ToString() + ";" + numericUpDownCell.Value.ToString();
+
+                    }
+                }
+                int ii = 0;
+                string ss = "";
+                while (File.Exists(userProfilePath + "\\Documents\\GlücksradClosed" + ss + ".csv"))
+                {
+                    ii++;
+                    ss = ii.ToString();
+                }
+                File.WriteAllText(userProfilePath + "\\Documents\\GlücksradClosed" + ss + ".csv", s);
+            }
+            /*
             if (checkedListBox1.Items.Count != 0)
             {
 
@@ -250,7 +391,7 @@ namespace SpieleGlücksrad
                 }
                 File.WriteAllText(userProfilePath + "\\Documents\\GlücksradClosed" + ss + ".csv", s);
             }
-
+    */
         }
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -259,21 +400,29 @@ namespace SpieleGlücksrad
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (checkedListBox1.Items.Count != 0)
+            if (dataGridView1.Rows.Count != 0)
             {
                 string userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                string s = "";
-                for (int i = 0; i < checkedListBox1.Items.Count; i++)
+
+                string s = "SaveTypeVersion=2";
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    if (i > 0) { s += "\n"; }
-                    s += checkedListBox1.Items[i] + ";" + checkedListBox1.GetItemChecked(i);
+                    DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                    DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                    DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                    if (Checkbox != null && numericUpDown1 != null && textbox != null)
+                    {
+                        s += "\n";
+                        s += textbox.Value.ToString() + ";" + Checkbox.Value.ToString() + ";" + numericUpDownCell.Value.ToString();
+
+                    }
                 }
 
                 File.WriteAllText(userProfilePath + "\\Documents\\GlücksradLastOpen.csv", s);
             }
         }
 
-        private void button9_Click(object sender, EventArgs e) => checkedListBox1.Items.Clear();
+        private void button9_Click(object sender, EventArgs e) => dataGridView1.Rows.Clear();
 
         public bool IsAutoStreich() => checkBox1.Checked;
 
@@ -290,12 +439,41 @@ namespace SpieleGlücksrad
         }
         public void Streiche()
         {
-            checkedListBox1.SetItemChecked(checkedListBox1.Items.IndexOf(f.getWin()), true);
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                string s = f.getWin();
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                if (Checkbox != null && numericUpDown1 != null && textbox != null)
+                {
+                    if (s == textbox.Value.ToString())
+                    {
+                        Checkbox.Value = true;
+                    }
+                }
+            }
+
+            //  checkedListBox1.SetItemChecked(checkedListBox1.Items.IndexOf(f.getWin()), true);
             label1.Text = f.getWin();
         }
         private void Prüfe()
         {
-            if (checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count <= 0) { button7.Enabled = false; } else { button7.Enabled = true; }
+            int anzahlPices = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
+                {
+
+
+                    anzahlPices += 1;
+
+                }
+            }
+            if (anzahlPices <= 0) { button7.Enabled = false; } else { button7.Enabled = true; }
+            // MessageBox.Show(anzahlPices.ToString());
         }
 
         private void button7_MouseEnter(object sender, EventArgs e) => Prüfe();
@@ -306,21 +484,52 @@ namespace SpieleGlücksrad
 
         private void button10_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                checkedListBox1.SetItemChecked(i, false);
+                string s = f.getWin();
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                DataGridViewNumericUpDownCell numericUpDownCell = dataGridView1.Rows[i].Cells[2] as DataGridViewNumericUpDownCell;
+                DataGridViewTextBoxCell textbox = dataGridView1.Rows[i].Cells[1] as DataGridViewTextBoxCell;
+                if (Checkbox != null && numericUpDown1 != null && textbox != null)
+                {
+
+
+                    Checkbox.Value = false;
+
+                }
             }
+
+            /*  for (int i = 0; i < checkedListBox1.Items.Count; i++)
+              {
+                  checkedListBox1.SetItemChecked(i, false);
+              }
+          */
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDown1.Maximum = checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count;
 
-            if (MakeList().Count > 0)
+            int anzahlPices = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
+                {
+
+                    anzahlPices += 1;
+
+                }
+            }
+            numericUpDown1.Maximum = anzahlPices;
+
+            //numericUpDown1.Maximum = checkedListBox1.Items.Count - checkedListBox1.CheckedItems.Count;
+
+            if (MakeoneList().Count > 0)
             {
 
 
-                label2.Text = MakeList()[(int)numericUpDown1.Value - 1].ToString();
+                label2.Text = MakeoneList()[(int)numericUpDown1.Value - 1].ToString();
 
 
 
@@ -330,10 +539,10 @@ namespace SpieleGlücksrad
         private void button11_Click(object sender, EventArgs e)
         {
             label2.Text = "Das Rad wird bestochen!";
-            f.Bestochen(((int)numericUpDown1.Value) - 1);
+            f.Bestochen(MakeoneList()[(int)numericUpDown1.Value - 1]);
         }
 
-        private void checkedListBox1_MouseClick(object sender, MouseEventArgs e)
+        /*private void checkedListBox1_MouseClick(object sender, MouseEventArgs e)
         {
             numericUpDown1.Maximum = checkedListBox1.Items.Count;
             int i = MakeList().IndexOf(checkedListBox1.Items[checkedListBox1.SelectedIndex].ToString());
@@ -342,7 +551,7 @@ namespace SpieleGlücksrad
                 numericUpDown1.Value = i + 1;
             }
         }
-
+        */
         private void button12_Click(object sender, EventArgs e)
         {
             Form3 ff = new Form3();
@@ -446,6 +655,52 @@ namespace SpieleGlücksrad
                 }
 
 
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int anzahlPices = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                DataGridViewCheckBoxCell Checkbox = dataGridView1.Rows[i].Cells[0] as DataGridViewCheckBoxCell;
+                if (Checkbox != null && Convert.ToBoolean(Checkbox.Value) == false)
+                {
+
+                    anzahlPices += 1;
+
+                }
+            }
+            numericUpDown1.Maximum = anzahlPices;
+            DataGridViewTextBoxCell textbox = dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells[1] as DataGridViewTextBoxCell;
+            if (textbox != null)
+            {
+                int i = MakeoneList().IndexOf(textbox.Value.ToString());
+                if (i > -1)
+                {
+                    numericUpDown1.Value = i + 1;
+                }
+
+            }
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Überprüfe, ob die angeklickte Zelle eine CheckBox-Zelle ist
+            if (e.ColumnIndex == 0 && e.RowIndex != -1 && dataGridView1.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
+            {
+                // Setze den Fokus auf die angeklickte Zelle
+                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                // Wechsle in den Bearbeitungsmodus
+                dataGridView1.BeginEdit(false);
+
+                // Beende die Bearbeitung
+                if (dataGridView1.IsCurrentCellDirty)
+                {
+                    dataGridView1.EndEdit();
+                }
             }
         }
     }
