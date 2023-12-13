@@ -119,8 +119,8 @@ namespace SpieleGlücksrad
                 //Glücksrad.FillRectangle(Brushes.Black, -200, 175, 400, 200);
                 Font bisa = new Font("Arial", 25, FontStyle.Bold);
                 RectangleF rf = new RectangleF();
-                rf.Width = 575;
-                rf.Height = 200;
+                rf.Width = 550;
+                rf.Height = 250;
                 rf.X = -250;
                 rf.Y = 550;
 
