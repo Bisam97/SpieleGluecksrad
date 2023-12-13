@@ -37,7 +37,6 @@
             groupBox2 = new GroupBox();
             button4 = new Button();
             button3 = new Button();
-            checkedListBox1 = new CheckedListBox();
             groupBox3 = new GroupBox();
             button10 = new Button();
             textBox1 = new TextBox();
@@ -68,6 +67,7 @@
             textBox2 = new TextBox();
             tabPage2 = new TabPage();
             button12 = new Button();
+            dataGridView1 = new DataGridView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -77,6 +77,7 @@
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -152,16 +153,6 @@
             button3.Text = "Save Settings";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
-            // 
-            // checkedListBox1
-            // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(271, 21);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(325, 220);
-            checkedListBox1.TabIndex = 2;
-            checkedListBox1.MouseClick += checkedListBox1_MouseClick;
-            checkedListBox1.MouseMove += checkedListBox1_MouseMove;
             // 
             // groupBox3
             // 
@@ -296,7 +287,7 @@
             groupBox5.Controls.Add(button11);
             groupBox5.Location = new Point(271, 254);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(325, 86);
+            groupBox5.Size = new Size(379, 86);
             groupBox5.TabIndex = 9;
             groupBox5.TabStop = false;
             groupBox5.Text = "Bestechen";
@@ -304,7 +295,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 53);
+            label2.Location = new Point(55, 53);
             label2.Name = "label2";
             label2.Size = new Size(113, 15);
             label2.TabIndex = 2;
@@ -312,7 +303,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(141, 20);
+            numericUpDown1.Location = new Point(190, 20);
             numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(129, 23);
@@ -322,7 +313,7 @@
             // 
             // button11
             // 
-            button11.Location = new Point(6, 20);
+            button11.Location = new Point(55, 20);
             button11.Name = "button11";
             button11.Size = new Size(129, 23);
             button11.TabIndex = 0;
@@ -337,7 +328,7 @@
             tabControl1.Location = new Point(271, 350);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(325, 147);
+            tabControl1.Size = new Size(379, 147);
             tabControl1.TabIndex = 10;
             // 
             // tabPage1
@@ -354,7 +345,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(317, 119);
+            tabPage1.Size = new Size(371, 119);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Geschwindichkeit und Timer";
             // 
@@ -428,7 +419,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(317, 119);
+            tabPage2.Size = new Size(371, 119);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Farben und co";
             // 
@@ -442,11 +433,24 @@
             button12.UseVisualStyleBackColor = true;
             button12.Click += button12_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(271, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(379, 235);
+            dataGridView1.TabIndex = 11;
+            dataGridView1.CellClick += dataGridView1_CellContentClick;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
+            dataGridView1.MouseMove += checkedListBox1_MouseMove;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(608, 529);
+            ClientSize = new Size(662, 529);
+            Controls.Add(dataGridView1);
             Controls.Add(tabControl1);
             Controls.Add(groupBox5);
             Controls.Add(checkBox1);
@@ -455,7 +459,6 @@
             Controls.Add(groupBox4);
             Controls.Add(label1);
             Controls.Add(groupBox3);
-            Controls.Add(checkedListBox1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -476,6 +479,7 @@
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -488,7 +492,6 @@
         private GroupBox groupBox2;
         private Button button4;
         private Button button3;
-        private CheckedListBox checkedListBox1;
         private GroupBox groupBox3;
         private TextBox textBox1;
         private Button button5;
@@ -520,5 +523,6 @@
         private CheckBox checkBox2;
         private Label label6;
         private TextBox textBox5;
+        private DataGridView dataGridView1;
     }
 }
