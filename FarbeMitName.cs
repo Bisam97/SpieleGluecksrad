@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SpieleGlücksrad
-{
+{   
+
+    //Keyword das die Klasse Serializiert werden kann
     [Serializable]
     public class FarbeMitName
     {

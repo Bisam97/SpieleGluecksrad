@@ -25,14 +25,19 @@ namespace SpieleGlücksrad
         private void Form3_Load(object sender, EventArgs e)
         {
 
-
+            //Erstellen der dataGridView
             dataGridView1.Columns.Add("Name", "Name");
             dataGridView1.Columns.Add("Farbe", "Farbe");
+            //Clonen einer Reihe als Template
             this.row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
+            //Löschen aller Reihen aus der dataGridView und setzten auf Read Only
             dataGridView1.Rows.Clear();
             dataGridView1.ReadOnly = true;
+
+            //Prüfen ob es eine Liste an fraben gibt
             if (farben != null)
-            {
+            {   
+                //wenn ja dann alle Elenmente in die datagriedView einfügen
                 foreach (FarbeMitName c in farben)
                 {
                     AddColor(c.Color, c.Name);
@@ -40,6 +45,7 @@ namespace SpieleGlücksrad
             }
         }
 
+        //Knopf für eine Regenbogen Glücksrad
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -63,27 +69,35 @@ namespace SpieleGlücksrad
             AddColor(Color.FromArgb(255, 0, 85), "Himbeer");
 
         }
+        //Füge eine Farbe hinzu benötigt eine Frabe und ein name
         private void AddColor(Color color, String name)
-        {
+        {   
+            //Füllen der ersten Zelle mit dem Namen
             row.Cells[0].Value = name;
+
+            //Erstellen einer DataGridViewImageCell
             DataGridViewImageCell cell = new DataGridViewImageCell();
             cell.ImageLayout = DataGridViewImageCellLayout.Normal;
             cell.Value = null;
 
+            //Erstellen einer Bitmap als Träger für die Farbe
             Bitmap bitmap = new Bitmap(20, 20);
             Graphics g = Graphics.FromImage(bitmap);
             SolidBrush brush = new SolidBrush(color);
             g.FillRectangle(brush, 0, 0, bitmap.Width, bitmap.Height);
             brush.Dispose();
+
+            //Setzten der Zelle 1 mit der Bitmap und der Farbe im Tag
             cell.Value = bitmap;
             this.row.Cells[1] = cell;
             this.row.Cells[1].Tag = color;
 
-
+            //hinzufügen zur dataGriedView
             dataGridView1.Rows.Add(this.row);
             row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
         }
 
+        //öffnen der Form
         public void ShowDialog(GrSettings s)
         {
             
@@ -91,6 +105,7 @@ namespace SpieleGlücksrad
             base.ShowDialog();
         }
 
+        //beim schließen der Form wird automatisch die Daten der datagriedView in einer Liste der Klasse FrabenmitNamen gesichert
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
             farben.Clear();
@@ -104,13 +119,14 @@ namespace SpieleGlücksrad
             }
         }
 
+        //Löschen der ausgewählten Reihe
         private void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count == 1) { return; }
             dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
 
         }
-
+        //per Colorchooser eine farbe wählen
         private void button1_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
