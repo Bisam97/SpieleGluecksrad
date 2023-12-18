@@ -2,9 +2,11 @@
 
 namespace SpieleGlücksrad
 {
-    [Serializable()]
+    //Keyword das die Klasse Serializiert werden kann
+    [Serializable]
     public class GrSettings
-    {
+    {   
+        //Beim erstellen wird die Klasse mit Standart werten gefüllt
         public GrSettings()
         {
             Color = new List<FarbeMitName>();
