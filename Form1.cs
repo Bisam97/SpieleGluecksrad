@@ -21,7 +21,7 @@ namespace SpieleGlücksrad
 
             // Spalten hinzufügen
             dataGridView1.AllowUserToAddRows = false;
-            
+
 
 
 
@@ -701,6 +701,15 @@ namespace SpieleGlücksrad
                 {
                     dataGridView1.EndEdit();
                 }
+            }
+        }
+
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control is DataGridViewNumericUpDownEditingControl numericUpDown)
+            {
+                numericUpDown.Value = Convert.ToDecimal(dataGridView1.CurrentCell.Value);
             }
         }
     }

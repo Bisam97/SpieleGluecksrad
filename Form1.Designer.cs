@@ -443,6 +443,7 @@
             dataGridView1.TabIndex = 11;
             dataGridView1.CellClick += dataGridView1_CellContentClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
+            dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             dataGridView1.MouseMove += checkedListBox1_MouseMove;
             // 
             // Form1
