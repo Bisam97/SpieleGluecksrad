@@ -104,7 +104,7 @@ namespace SpieleGlücksrad
 
         private void button5_Click(object sender, EventArgs e)
         {
-            int v = dataGridView1.Rows.Add(textBox1.Text, 0, 1);
+            int v = dataGridView1.Rows.Add(0, textBox1.Text, 1);
             //int v = checkedListBox1.Items.Add(textBox1.Text, 0);
             label1.Text = "Added as Number: " + v;
             Prüfe();
