@@ -240,7 +240,12 @@ namespace SpieleGlücksrad
 
             //Prüfen ob der Dialog mit Ok geschlossen wurde
             if (rmd == DialogResult.OK)
-            {
+            {   
+                //setzten der Einstellungen
+                s.MaxDuration = (int)(float.Parse(textBox3.Text) * 1000);
+                s.MinDuration = (int)(float.Parse(textBox2.Text) * 1000);
+                s.verzögerung = (int)(float.Parse(textBox5.Text) * 1000);
+                s.speed = (int.Parse(textBox4.Text));
                 //Erstellen der Datei worin die Einstellungen gespeichert werden
                 Stream stream = File.Open(saveFileDialog1.FileName, FileMode.Create);
                 
